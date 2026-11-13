@@ -1,0 +1,92 @@
+{
+  "project": "ifood-catalog-slm-qlora",
+  "hardware": "NVIDIA Tesla T4 (16GB VRAM) - Kaggle GPU",
+  "base_model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+  "dataset_id": "LucasFig0/brazilian-delivery-catalog-sft",
+  "adapter_repo_id": "LucasFig0/qwen2.5-1.5b-ifood-catalog-qlora",
+  "dataset_splits": {
+    "train": 800,
+    "validation": 150,
+    "test": 200,
+    "total_real_ean_skus": 1150
+  },
+  "architecture_stats": {
+    "trainable_params": 18464768,
+    "all_params": 1562179072,
+    "trainable_pct": 1.182,
+    "quantization": "4-bit NormalFloat (NF4) + Double Quantization",
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "estimated_vram_gb": 3.362
+  },
+  "base_zero_shot": {
+    "total_samples": 200,
+    "json_schema_compliance_rate": 0.185,
+    "strict_clean_json_rate": 0.0,
+    "mean_field_exact_match": 0.096,
+    "field_accuracies": {
+      "category": 0.055,
+      "main_protein_or_base": 0.03,
+      "portion_size": 0.055,
+      "is_combo": 0.175,
+      "volume_or_weight": 0.165
+    },
+    "dietary_tags_micro_f1": 0.1022,
+    "components_token_f1": 0.1257,
+    "search_synonyms_token_f1": 0.0438,
+    "food_safety_violations": 11,
+    "food_safety_violation_rate": 0.055,
+    "latency": {
+      "p50_ms": 1123.61
+    }
+  },
+  "fine_tuned_qlora": {
+    "total_samples": 200,
+    "json_schema_compliance_rate": 0.75,
+    "strict_clean_json_rate": 0.605,
+    "mean_field_exact_match": 0.697,
+    "field_accuracies": {
+      "category": 0.75,
+      "main_protein_or_base": 0.615,
+      "portion_size": 0.645,
+      "is_combo": 0.745,
+      "volume_or_weight": 0.73
+    },
+    "conditional_accuracy_on_valid_schema": {
+      "category_accuracy": 1.0,
+      "main_protein_or_base_accuracy": 0.82,
+      "portion_size_accuracy": 0.86,
+      "components_token_f1": 0.9039,
+      "search_synonyms_token_f1": 0.8529
+    },
+    "dietary_tags_micro_f1": 0.3184,
+    "components_token_f1": 0.6779,
+    "search_synonyms_token_f1": 0.6397,
+    "food_safety_violations": 0,
+    "food_safety_violation_rate": 0.0,
+    "latency": {
+      "p50_ms_unmerged_peft": 1934.95,
+      "engineering_note": "Measured with 196 unmerged dynamic PEFT LoRA hooks on NF4 weights; merging weights (W + BA) for vLLM/TGI eliminates adapter dispatch overhead."
+    }
+  },
+  "unit_economics_50m_skus_monthly": {
+    "monthly_skus": 50000000.0,
+    "frontier_llm_monthly_cost_usd": 228750.0,
+    "slm_qlora_monthly_cost_usd": 325.52,
+    "monthly_savings_usd": 228424.48,
+    "annualized_savings_usd": 2741093.75,
+    "cost_reduction_pct": 99.86,
+    "frontier_cost_per_1k_skus_usd": 4.575,
+    "slm_cost_per_1k_skus_usd": 0.0065,
+    "slm_gpu_hours_required": 434.03
+  }
+}

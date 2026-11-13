@@ -1,0 +1,13 @@
+﻿__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+.pytest_cache/
+data/processed/*.jsonl
+data/processed/*.parquet
+artifacts/checkpoints/
+artifacts/lora_adapter/
+*.egg-info/
+.DS_Store
